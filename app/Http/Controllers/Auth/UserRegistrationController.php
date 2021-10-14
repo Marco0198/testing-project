@@ -34,7 +34,7 @@ class UserRegistrationController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-        event(new Registered($user));
+    //    event(new Registered($user));
 
         $token = $user->createToken('pass')->accessToken;
    return response()->json([
