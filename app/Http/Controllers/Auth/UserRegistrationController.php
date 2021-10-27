@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -17,7 +18,6 @@ class UserRegistrationController extends Controller
      */
     public function index()
     {
-
     }
 
     public function register(Request $request)
@@ -26,7 +26,7 @@ class UserRegistrationController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|confirmed|min:6',
+            'password' => 'required',
         ]);
 
         $user = User::create([
@@ -34,15 +34,14 @@ class UserRegistrationController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-    //    event(new Registered($user));
+        //   event(new Registered($user));
 
         $token = $user->createToken('pass')->accessToken;
-   return response()->json([
+        return response()->json([
             "success" => true,
             "message" => 'Registered successfully, please check your email to confirm your account',
             'token' => $token
         ]);
-
     }
 
     public function login(Request $request)
@@ -56,13 +55,10 @@ class UserRegistrationController extends Controller
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
             $token =  $user->createToken('pass')->accessToken;
-            return response()->json(['success' => true, "message" => 'login successfully','token' => $token,]);
-        }
-        else
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
-
+            return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,]);
+        } else
+            return back()->withErrors([
+                'email' => 'The provided credentials do not match our records.',
+            ]);
     }
-
 }

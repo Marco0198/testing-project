@@ -13,6 +13,9 @@ class ForgetPasswordController extends Controller
 {
     public function forgetPassword(Request $request): \Illuminate\Http\JsonResponse
     {
+        $request->validate([
+            'email' => 'required|email|exists:users,email'
+        ]);
 
         $email=$request->input('email');
         if(User::where('email',$email)->exists()){

@@ -1,8 +1,5 @@
 <?php
-/*
-by marco mulondayi
 
-*/
 namespace App\Http\Controllers;
 
 use App\Http\Resources\TaskCollection;
@@ -22,7 +19,7 @@ class TaskController extends Controller
     public function getAllTasks()
     {
         return Task::all();
-      //  return new TaskCollection(Task::all());
+        //  return new TaskCollection(Task::all());
     }
 
     /**
@@ -33,27 +30,28 @@ class TaskController extends Controller
      */
     public function createTask(Request $request)
     {
-       $request->validate([
+        $request->validate([
             'title' => 'required|',
             'description' => 'required',
             'status' => 'required',
         ]);
 
         $task = Task::create($request->only(
-            ['title',
-            'description',
-            'status'
-            ]));
+            [
+                'title',
+                'description',
+                'status'
+            ]
+        ));
         $name = $request->file('attach')->getClientOriginalName();
-        $path = $request->file('attach')->storeAs('public/upload',$name);
+        $path = $request->file('attach')->storeAs('public/upload', $name);
 
-        $task->attach= $path;
+        $task->attach = $path;
         $task->save();
 
-       // return new TaskResource($task);
+        // return new TaskResource($task);
         return $task;
-
-   }
+    }
 
 
 
@@ -65,9 +63,9 @@ class TaskController extends Controller
      */
     public function getTaskById($id)
     {
-        $task=Task::where('id',$id)->first();
+        $task = Task::where('id', $id)->first();
 
-    return $task;
+        return $task;
     }
 
     /**
@@ -79,10 +77,12 @@ class TaskController extends Controller
      */
     public function updateTask(Request $request, Task $task)
     {
-        $task->update($request->only([ 'title',
+        $task->update($request->only([
+            'title',
             'description',
             'attach',
-            'status']));
+            'status'
+        ]));
         return new TaskResource($task);
     }
 
@@ -92,14 +92,13 @@ class TaskController extends Controller
      * @param  \App\Models\Task  $task
      * @return \Illuminate\Http\JsonResponse
      */
-    public function deleteTask( $id)
+    public function deleteTask($id)
     {
-        if($task=Task::where('id',$id)->first()){
+        if ($task = Task::where('id', $id)->first()) {
             $task->delete();
-            return response()->json(['success'=>true, "message" => ' successfully deleted',]);
-        }
-        else
-        return response()->json(['success'=>true, "message" => 'task is already deleted',]);
+            return response()->json(['success' => true, "message" => ' successfully deleted',]);
+        } else
+            return response()->json(['success' => true, "message" => 'task is already deleted',]);
     }
 
 
@@ -111,8 +110,8 @@ class TaskController extends Controller
      */
     public function forceDeleted(Task $task): \Illuminate\Http\JsonResponse
     {
-       $task->forceDelete();
+        $task->forceDelete();
 
-        return response()->json(['success'=>true, "message" => ' this task was permanently deleted',]);
+        return response()->json(['success' => true, "message" => ' this task was permanently deleted',]);
     }
 }
