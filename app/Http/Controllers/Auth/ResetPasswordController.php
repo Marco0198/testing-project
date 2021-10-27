@@ -11,7 +11,14 @@ use Illuminate\Support\Facades\Hash;
 class ResetPasswordController extends Controller
 {
     public function passwordReset(Request $request)
+
     {
+        $request->validate([
+            'token' => 'required|string|exists:password_resets,token',
+            'email' => 'required|email|exists:users,email'
+
+        ]);
+
         $token  = $request->input('token');
         $email  = $request->input('email');
 
