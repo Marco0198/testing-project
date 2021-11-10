@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Validation\Rules;
 class ResetPasswordController extends Controller
 {
     public function passwordReset(Request $request)
@@ -15,7 +15,8 @@ class ResetPasswordController extends Controller
     {
         $request->validate([
             'token' => 'required|string|exists:password_resets,token',
-            'email' => 'required|email|exists:users,email'
+            'email' => 'required|email|exists:users,email',
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
 
         ]);
 
