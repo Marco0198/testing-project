@@ -21,7 +21,7 @@ class ForgetPasswordController extends Controller
         if(User::where('email',$email)->exists()){
             $token=Str::random(10);
           DB::table('password_resets')->insert(['email'=>$email,'token'=>$token]);
-            return response()->json(['message' => 'Request uccessfully made', 'token' => $token]);
+            return response()->json(['message' => 'Request successfully made', 'token' => $token]);
        } else
             return response()->json(['message' => 'this user does not exits,please register first']);
 
