@@ -25,12 +25,12 @@ class ResetPasswordController extends Controller
 
         if (!DB::table('password_resets')->where('token', $token)->exists() && User::where('email', $email)->exists()) {
 
-            return response()->json(['message' => "this token  or email is  invalid ,please request a new token",]);
+            return response()->json(['message' => " token  or email is  invalid ,please request a new token",]);
         }
         if (User::where('email', $email)->update(['password' => Hash::make($request->password)])) {
             DB::table('password_resets')->where(['email' => $request->email])->delete();
 
-            return response()->json(['status' => true, 'message' => "successfully change",]);
+            return response()->json(['status' => true, 'message' => "your password is successfully change",]);
         }
     }
 }
