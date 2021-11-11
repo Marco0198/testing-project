@@ -50,8 +50,9 @@ class UserRegistrationController extends Controller
 
         $credentials = $request->validate([
             'email' => 'required|email|exists:users,email',
-            'password' => ['required|exists:users,password', Hash::make($request->password)],
+            'password' => 'required|exists:users,password:api',
         ]);
+
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
