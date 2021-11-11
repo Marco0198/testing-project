@@ -50,7 +50,7 @@ class UserRegistrationController extends Controller
 
         $request->validate([
             'email' => 'required|email|exists:users,email',
-            'password' => 'required|exists:users,password',
+            'password' => 'required|',
         ]);
 
         $credentials = $request->only(['email', 'password' => Hash::make($request->password)]);
