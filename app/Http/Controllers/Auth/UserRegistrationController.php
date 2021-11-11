@@ -50,7 +50,7 @@ class UserRegistrationController extends Controller
 
         $credentials = $request->validate([
             'email' => 'required|email|exists:users,email',
-            'password' => 'required',
+            'password' => 'required|current_password:api',
         ]);
 
         if (Auth::attempt($credentials)) {
@@ -58,8 +58,9 @@ class UserRegistrationController extends Controller
             $token =  $user->createToken('pass')->accessToken;
             return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,]);
         } else
-            return back()->withErrors([
+            return response()->json([
                 'email' => 'The provided credentials do not match our records.',
+            'password' => 'The provided credentials do not match our records.',
             ]);
     }
 }
