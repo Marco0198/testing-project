@@ -48,12 +48,10 @@ class UserRegistrationController extends Controller
     public function login(Request $request)
     {
 
-        $request->validate([
+        $credentials = $request->validate([
             'email' => 'required|email|exists:users,email',
-            'password' => 'required|',
+            'password' => 'required|min:8',
         ]);
-
-        $credentials = $request->only(['email', 'password' => Hash::make($request->password)]);
 
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
@@ -61,8 +59,10 @@ class UserRegistrationController extends Controller
             return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,]);
         } else
             return response()->json([
-                'email' => 'The provided credentials do not match our records.',
-            'password' => 'The provided credentials do not match our records.',
+                'password' => 'Wrong Password',
             ]);
     }
+
+
+
 }
