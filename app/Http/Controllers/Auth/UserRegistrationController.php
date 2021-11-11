@@ -60,7 +60,7 @@ class UserRegistrationController extends Controller
         } else
             return response()->json(
             [
-                "message" => 'The given data was invalid', "errors" => ["password" => 'wrong password']
+                "success" => false, "message" => 'The given data was invalid', "password" => 'The password that you have enter is wrong'
             ],
             422
         );
