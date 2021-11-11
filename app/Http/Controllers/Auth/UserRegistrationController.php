@@ -58,8 +58,9 @@ class UserRegistrationController extends Controller
             $token =  $user->createToken('pass')->accessToken;
             return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,]);
         } else
-            return response()->json([
-                "success" => false, "message" => 'The given data was invalid', "errors " => ["password" => ['wrong password']]
+            return response()->json(
+                [
+                    "success" => false, "message" => 'The given data was invalid', "password" => 'wrong password'
             ], 422);
          //   {"message":"The given data was invalid.","errors":{"email":["The selected email is invalid."]}
     }
