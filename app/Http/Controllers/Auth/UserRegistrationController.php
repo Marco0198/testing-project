@@ -37,11 +37,11 @@ class UserRegistrationController extends Controller
         ]);
         //   event(new Registered($user));
 
-        $token = $user->createToken('pass')->accessToken;
+       // $token = $user->createToken('pass')->accessToken;
         return response()->json([
             "success" => true,
             "message" => 'The Registration was successful',
-            'token' => $token
+           // 'token' => $token
         ]);
     }
 
@@ -68,7 +68,7 @@ class UserRegistrationController extends Controller
         );
          //   {"message":"The given data was invalid.","errors":{"email":["The selected email is invalid."]}
     }
- public function getUser(): ?\Illuminate\Contracts\Auth\Authenticatable
+    public function getUser()
  {
      return Auth::user();
  }
