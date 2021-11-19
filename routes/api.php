@@ -23,10 +23,12 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::get('/user', function(Request $request) {
-    return Auth::user();
-})->middleware('auth:api');
-
+// Route::get('/user', function(Request $request) {
+//     return Auth::user();
+// })->middleware('auth:api');
+Route::get('/user', function (Request $request) {
+    return auth()->guard('api')->user();
+  });
 
 //Route::resource('/task', TaskController::class);
 Route::get('/task/{task}', [TaskController::class,'getTaskById']);
