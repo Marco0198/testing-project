@@ -53,8 +53,8 @@ class UserRegistrationController extends Controller
             'password' => 'required|min:8',
         ]);
 
-        if (Auth::attempt($credentials)) {
-           /*  @var User $user*/
+        if (Auth::check($credentials)) {
+           /*  @var User $user */
             $user = Auth::user();
 
             $token =  $user->createToken('pass')->accessToken;
