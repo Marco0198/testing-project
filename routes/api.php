@@ -23,9 +23,9 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/user', function(Request $request) {
+    return Auth::user();
+})->middleware('auth:api')
 
 
 //Route::resource('/task', TaskController::class);
