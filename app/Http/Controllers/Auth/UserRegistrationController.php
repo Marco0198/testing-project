@@ -40,7 +40,7 @@ class UserRegistrationController extends Controller
         $token = $user->createToken('pass')->accessToken;
         return response()->json([
             "success" => true,
-            "message" => 'The Registration was successfull',
+            "message" => 'The Registration was successful',
             'token' => $token
         ]);
     }
@@ -56,9 +56,9 @@ class UserRegistrationController extends Controller
         if (Auth::attempt($credentials)) {
            /*  @var User $user*/
             $user = Auth::user();
-            
+
             $token =  $user->createToken('pass')->accessToken;
-            return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,,'user'=$user], 200);
+            return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,'user'=>$user], 200);
         } else
             return response()->json(
             [
@@ -68,7 +68,8 @@ class UserRegistrationController extends Controller
         );
          //   {"message":"The given data was invalid.","errors":{"email":["The selected email is invalid."]}
     }
- public function getUser(){
+ public function getUser(): ?\Illuminate\Contracts\Auth\Authenticatable
+ {
      return Auth::user();
  }
 
