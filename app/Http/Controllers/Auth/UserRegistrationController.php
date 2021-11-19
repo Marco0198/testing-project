@@ -58,7 +58,7 @@ class UserRegistrationController extends Controller
             $user = Auth::user();
 
             $token =  $user->createToken('pass')->accessToken;
-            return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token,'user'=>$user], 200);
+            return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token], 200);
         } else
             return response()->json(
             [
