@@ -54,7 +54,7 @@ class UserRegistrationController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-           /*  @var User $user*/
+            /*  @var User $user*/
             $user = Auth::user();
 
             $token =  $user->createToken('pass')->accessToken;
