@@ -48,12 +48,12 @@ class UserRegistrationController extends Controller
     public function login(Request $request)
     {
 
-        $credentials = $request->validate([
+        $request->validate([
             'email' => 'required|email|exists:users,email',
             'password' => 'required|min:8',
         ]);
 
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($request->only("email", "password"))) {
             /*  @var User $user*/
             $user = Auth::user();
 
