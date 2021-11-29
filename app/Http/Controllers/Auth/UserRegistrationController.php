@@ -103,6 +103,23 @@ class UserRegistrationController extends Controller
 
         return response()->json(['Message'=>'password successfully updated',"success"=>true],200);
     }
+    public function profileUpdate(Request $request){
+        //validation rules
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'phone' => ' required|digits:10',
+            'surname' => 'required|string|max:255',
+        ]);
+        $user =Auth::user();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->surname = $request->surname;
+        $user->save();
+        return response()->json(['message'=>'Profile suceesfully Updated'],200);
+    }
 
 
 }
