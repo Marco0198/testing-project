@@ -89,7 +89,7 @@ class UserRegistrationController extends Controller
         
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|same:confirm_password|min:6',
+            'password' => 'required|same:confirm_password|min:8',
             'confirm_password' => 'required',
         ]);
 
