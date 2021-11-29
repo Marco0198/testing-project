@@ -103,6 +103,9 @@ class UserRegistrationController extends Controller
 
         return response()->json(['Message'=>'password successfully updated',"success"=>true],200);
     }
+
+
+    
     public function profileUpdate(Request $request){
         //validation rules
 
