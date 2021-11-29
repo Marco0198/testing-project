@@ -101,7 +101,7 @@ class UserRegistrationController extends Controller
 
         $user->save();
 
-        return response()->json('success','password successfully updated');
+        return response()->json(['success'=>'password successfully updated']);
     }
 
 
