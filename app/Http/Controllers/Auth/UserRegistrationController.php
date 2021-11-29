@@ -29,7 +29,6 @@ class UserRegistrationController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'phone' => ' required|digits:10',
             'surname' => 'required|string|max:255',
-
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
@@ -77,6 +76,33 @@ class UserRegistrationController extends Controller
  {
      return Auth::user();
  }
+ /**
+     * Change the current password
+     * @param Request $request
+     * @return Renderable
+     */
+    public function changePassword(Request $request)
+    {       
+        $user = Auth::user();
+    
+        $userPassword = $user->password;
+        
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|same:confirm_password|min:6',
+            'confirm_password' => 'required',
+        ]);
+
+        if (!Hash::check($request->current_password, $userPassword)) {
+            return response()->json(['current_password'=>'password not match']);
+        }
+
+        $user->password = Hash::make($request->password);
+
+        $user->save();
+
+        return response()->json('success','password successfully updated');
+    }
 
 
 }
