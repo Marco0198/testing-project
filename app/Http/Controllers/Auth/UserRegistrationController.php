@@ -94,7 +94,7 @@ class UserRegistrationController extends Controller
         ]);
 
         if (!Hash::check($request->current_password, $userPassword)) {
-            return response()->json(['current_password'=>'password not match']);
+            return response()->json(['current_password'=>'password not match'],401);
         }
 
         $user->password = Hash::make($request->password);
@@ -118,7 +118,7 @@ class UserRegistrationController extends Controller
         $user->phone = $request->phone;
         $user->surname = $request->surname;
         $user->save();
-        return response()->json(['message'=>'Profile suceesfully Updated'],200);
+        return response()->json(['message'=>'Profile suceesfully Updated',"success"=>true],200);
     }
 
 
