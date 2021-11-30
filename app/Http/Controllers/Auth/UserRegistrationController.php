@@ -82,11 +82,11 @@ class UserRegistrationController extends Controller
      * @return Renderable
      */
     public function changePassword(Request $request)
-    {       
+    {
         $user = Auth::user();
-    
+
         $userPassword = $user->password;
-        
+
         $request->validate([
             'current_password' => 'required',
             'password' => 'required|same:confirm_password|min:8',
@@ -94,7 +94,7 @@ class UserRegistrationController extends Controller
         ]);
 
         if (!Hash::check($request->current_password, $userPassword)) {
-            return response()->json(['current_password'=>'password not match'],401);
+            return response()->json(["message" => 'The given data was invalid', 'current_password' => 'password not match'], 401);
         }
 
         $user->password = Hash::make($request->password);
@@ -105,7 +105,7 @@ class UserRegistrationController extends Controller
     }
 
 
-    
+
     public function profileUpdate(Request $request){
         //validation rules
 
