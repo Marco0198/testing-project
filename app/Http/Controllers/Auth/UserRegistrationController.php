@@ -107,7 +107,7 @@ class UserRegistrationController extends Controller
 
 
 
-    public function profileUpdate(Request $request, User $id)
+    public function profileUpdate(Request $request, $id)
     {
         //validation rules
 
@@ -120,6 +120,7 @@ class UserRegistrationController extends Controller
             'phone' => ' digits:10',
             'surname' => 'string|max:255',
         ]);
+        $id = Auth::id();
         $user = Auth::user();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
