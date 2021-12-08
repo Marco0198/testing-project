@@ -110,7 +110,7 @@ class UserRegistrationController extends Controller
     public function profileUpdate(Request $request)
     {
         //validation rules
-        // $id = Auth::id();
+        $id = Auth::id();
         $request->validate(['name' => 'string|max:255',
             'email' => [
                 'email', Rule::unique('users')->ignore($id),
