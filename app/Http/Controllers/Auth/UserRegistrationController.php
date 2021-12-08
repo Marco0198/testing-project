@@ -110,22 +110,24 @@ class UserRegistrationController extends Controller
     public function profileUpdate(Request $request)
     {
         //validation rules
-        $id = Auth::id();
+        // $id = Auth::id();
         $request->validate(['name' => 'string|max:255',
             'email' => [
-                'email',
-                Rule::unique('users')->ignore($id),
+                'email', Rule::unique('users')->ignore($id),
             ],
             'phone' => ' digits:10',
             'surname' => 'string|max:255',
         ]);
 
-        $user = Auth::user();
-        $user->name = $request->get('name');
-        $user->email = $request->get('email');
-        $user->phone = $request->get('phone');
-        $user->surname = $request->get('surname');
-        $user->save();
+        $current_user = Auth::user();
+        $fieldsToUpdate = $request->all();
+        $current_user->update($fieldsToUpdate);
+
+        // $user->name = $request->get('name');
+        // $user->email = $request->get('email');
+        // $user->phone = $request->get('phone');
+        // $user->surname = $request->get('surname');
+        // $user->save();
         return response()->json(['message'=>'Profile suceesfully Updated',"success"=>true],200);
     }
 
