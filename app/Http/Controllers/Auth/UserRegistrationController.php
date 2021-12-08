@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use Illuminate\Validation\Rule;
 
 class UserRegistrationController extends Controller
 {
@@ -106,11 +107,16 @@ class UserRegistrationController extends Controller
 
 
 
-    public function profileUpdate(Request $request){
+    public function profileUpdate(Request $request, $id)
+    {
         //validation rules
 
         $request->validate(['name' => 'string|max:255',
-            'email' => 'email|max:255|unique:users',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
             'phone' => ' digits:10',
             'surname' => 'string|max:255',
         ]);
