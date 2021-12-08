@@ -25,7 +25,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/user', [UserRegistrationController::class,'getUser'])->middleware('auth:api');
 Route::put('/change_password', [UserRegistrationController::class,'changePassword'])->middleware('auth:api');
-Route::put('/profile_update/{user}', [UserRegistrationController::class, 'profileUpdate'])->middleware('auth:api');
+Route::put('/profile_update/{client_id}', [UserRegistrationController::class, 'profileUpdate'])->middleware('auth:api');
 
 //Route::resource('/task', TaskController::class);
 Route::get('/task/{task}', [TaskController::class,'getTaskById']);
