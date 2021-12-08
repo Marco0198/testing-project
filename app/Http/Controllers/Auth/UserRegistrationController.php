@@ -107,7 +107,7 @@ class UserRegistrationController extends Controller
 
 
 
-    public function profileUpdate(Request $request)
+    public function profileUpdate(Request $request, $id)
     {
         //validation rules
         $id = Auth::id();
