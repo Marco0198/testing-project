@@ -115,10 +115,10 @@ class UserRegistrationController extends Controller
             'surname' => 'string|max:255',
         ]);
         $user =Auth::user();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->phone = $request->phone;
-        $user->surname = $request->surname;
+        $user->name = $request->get('name');
+        $user->email = $request->get('email');
+        $user->phone = $request->get('phone');
+        $user->surname = $request->get('surname');
         $user->save();
         return response()->json(['message'=>'Profile suceesfully Updated',"success"=>true],200);
     }
