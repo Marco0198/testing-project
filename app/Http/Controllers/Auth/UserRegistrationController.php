@@ -110,7 +110,7 @@ class UserRegistrationController extends Controller
         //validation rules
 
         $request->validate(['name' => 'string|max:255',
-            'email' => 'string|email|max:255|unique:users',
+            'email' => 'email|max:255|unique:users',
             'phone' => ' digits:10',
             'surname' => 'string|max:255',
         ]);
