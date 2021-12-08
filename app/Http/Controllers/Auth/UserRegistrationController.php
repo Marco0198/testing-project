@@ -109,11 +109,10 @@ class UserRegistrationController extends Controller
     public function profileUpdate(Request $request){
         //validation rules
 
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'phone' => ' required|digits:10',
-            'surname' => 'required|string|max:255',
+        $request->validate(['name' => 'string|max:255',
+            'email' => 'string|email|max:255|unique:users',
+            'phone' => ' digits:10',
+            'surname' => 'string|max:255',
         ]);
         $user =Auth::user();
         $user->name = $request->name;
