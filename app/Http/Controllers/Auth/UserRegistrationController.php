@@ -111,15 +111,21 @@ class UserRegistrationController extends Controller
     {
         //validation rules
         $current_user = Auth::user();
-        $request->validate([
-            // 'name' => 'string|max:255',
-            'email' => [Rule::unique('users')->ignore($current_user->id),],
-            // 'phone' => ' digits:10',
-            // 'surname' => 'string|max:255',
+        $request->validate(['name' => 'string|max:255',
+            'email' => ['email', Rule::unique('users')->ignore($current_user->id)],
+            'phone' => ' digits:10',
+            'surname' => 'string|max:255',
         ]);
 
-        $fieldsToUpdate = $request->all();
-        $current_user->update($fieldsToUpdate);
+
+        //  $fieldsToUpdate = $request->all();
+        $current_user->update([
+            'surname' => strip_tags(request('surname')),
+            'name' => strip_tags(request('name')),
+            'phone' => strip_tags(request('phone')),
+            'email' => strip_tags(request('email')),
+
+        ]);
 
         // $user->name = $request->get('name');
         // $user->email = $request->get('email');
