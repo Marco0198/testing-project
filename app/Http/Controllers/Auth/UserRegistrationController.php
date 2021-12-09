@@ -42,11 +42,11 @@ class UserRegistrationController extends Controller
         ]);
         //   event(new Registered($user));
 
-       // $token = $user->createToken('pass')->accessToken;
+        // $token = $user->createToken('pass')->accessToken;
         return response()->json([
             "success" => true,
             "message" => 'The Registration was successful',
-           // 'token' => $token
+            // 'token' => $token
         ]);
     }
 
@@ -66,18 +66,18 @@ class UserRegistrationController extends Controller
             return response()->json(['success' => true, "message" => 'login successfully', 'token' => $token], 200);
         } else
             return response()->json(
-            [
-                "success" => false, "message" => 'The given data was invalid', "password" => 'The password that you have enter is wrong'
-            ],
-            422
-        );
-         //   {"message":"The given data was invalid.","errors":{"email":["The selected email is invalid."]}
+                [
+                    "success" => false, "message" => 'The given data was invalid', "password" => 'The password that you have enter is wrong'
+                ],
+                422
+            );
+        //   {"message":"The given data was invalid.","errors":{"email":["The selected email is invalid."]}
     }
     public function getUser()
- {
-     return Auth::user();
- }
- /**
+    {
+        return Auth::user();
+    }
+    /**
      * Change the current password
      * @param Request $request
      * @return Renderable
@@ -102,7 +102,7 @@ class UserRegistrationController extends Controller
 
         $user->save();
 
-        return response()->json(['Message'=>'password successfully updated',"success"=>true],200);
+        return response()->json(['Message' => 'password successfully updated', "success" => true], 200);
     }
 
 
@@ -111,14 +111,12 @@ class UserRegistrationController extends Controller
     {
         //validation rules
         $current_user = Auth::user();
-        $request->validate(['name' => 'string|max:255',
-            'email' => [
-                'email', Rule::unique('users')->ignore($current_user->id),
-            ],
-            'phone' => ' digits:10',
-            'surname' => 'string|max:255',
+        $request->validate([
+            // 'name' => 'string|max:255',
+            'email' => ['email', Rule::unique('users')->ignore($current_user->id),],
+            // 'phone' => ' digits:10',
+            // 'surname' => 'string|max:255',
         ]);
-
 
         $fieldsToUpdate = $request->all();
         $current_user->update($fieldsToUpdate);
@@ -128,8 +126,6 @@ class UserRegistrationController extends Controller
         // $user->phone = $request->get('phone');
         // $user->surname = $request->get('surname');
         // $user->save();
-        return response()->json(['message'=>'Profile suceesfully Updated',"success"=>true],200);
+        return response()->json(['message' => 'Profile suceesfully Updated', "success" => true], 200);
     }
-
-
 }
