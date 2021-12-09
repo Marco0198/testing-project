@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddPhoneAndSurnameToUsersTable extends Migration
+class AddChangeColomnToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,6 @@ class AddPhoneAndSurnameToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('surname');
             $table->string('phone')->change();
         });
     }
@@ -28,6 +27,7 @@ class AddPhoneAndSurnameToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             Schema::dropIfExists('users');
+
         });
     }
 }
