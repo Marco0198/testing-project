@@ -111,11 +111,10 @@ class UserRegistrationController extends Controller
     {
         //validation rules
         $current_user = Auth::user();
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => ['required|email', Rule::unique('users')->ignore($current_user->id)],
+        $request->validate(['name' => 'required|string|max:255',
             'phone' => ' required|string|max:10|min:10',
             'surname' => 'string|max:255',
+            'email'     => ['required', 'email', Rule::unique('users', 'email')->ignore($current_user->id)],
         ]);
 
 
