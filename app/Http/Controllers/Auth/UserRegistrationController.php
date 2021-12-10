@@ -95,7 +95,7 @@ class UserRegistrationController extends Controller
         ]);
 
         if (!Hash::check($request->current_password, $userPassword)) {
-            return response()->json(["message" => 'The given data was invalid', 'current_password' => 'password not match'], 401);
+            return response()->json(["message" => 'The given data was invalid', 'current_password' => 'your current password is wrong '], 401);
         }
 
         $user->password = Hash::make($request->password);
